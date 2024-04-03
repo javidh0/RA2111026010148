@@ -1,7 +1,6 @@
 const axios = require('axios');
 
-// const companies = ["AMZ", "FLP", "SNP", "MYN", "AZO"];
-const companies = ["AMZ"];
+const companies = ["AMZ", "FLP", "SNP", "MYN", "AZO"];
 
 const test_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzEyMTUxNjc5LCJpYXQiOjE3MTIxNTEzNzksImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjcwNGJhOTk2LTI5ZGYtNGU4Yi05ODM0LWNjYmY3NTI3NTAyNiIsInN1YiI6Im1tMTYzMkBzcm1pc3QuZWR1LmluIn0sImNvbXBhbnlOYW1lIjoiU3JtIFVuaXZlcnNpdHksIEtUUiIsImNsaWVudElEIjoiNzA0YmE5OTYtMjlkZi00ZThiLTk4MzQtY2NiZjc1Mjc1MDI2IiwiY2xpZW50U2VjcmV0IjoiTXZtVGNYc2lwamNNSGNyRCIsIm93bmVyTmFtZSI6Ik1vaGFtbWVkIEphdmlkaCBTIiwib3duZXJFbWFpbCI6Im1tMTYzMkBzcm1pc3QuZWR1LmluIiwicm9sbE5vIjoiUkEyMTExMDI2MDEwMTQ4In0.7xAoObPKihPxVw-_hjwdfuXtG4hASsO_asmLBBejQB0";
 
@@ -48,7 +47,7 @@ async function getDataApi(req, res){
     let nProduct = req.query.nProduct;
     let minPrice = req.query.minPrice;
     let maxPrice = req.query.maxPrice;
-    let sort = {};
+    let sort = req.body.sort;
 
     const b_token = await getBearerToken();
     const headers = { 'Authorization': `Bearer ${b_token}` }; 
@@ -103,6 +102,12 @@ async function getData(catagory, minPrice, maxPrice, nProduct, sort){
                 if(response_tr.length == companies.length*nProduct) {
                     if(sort['price']) response_tr.sort(function(a, b){
                         return a.price - b.price;
+                    });
+                    if(sort['rating']) response_tr.sort(function(a, b){
+                        return a.rating - b.rating;
+                    });
+                    if(sort['rating']) response_tr.sort(function(a, b){
+                        return a.rating - b.rating;
                     });
                     console.log(response_tr);
                 }
