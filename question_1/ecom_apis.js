@@ -13,23 +13,15 @@ const test_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXh
 
 var token = {};
 
-// var clientId = {
-//     "companyName": "Srm University, KTR",
-//     "clientID": "704ba996-29df-4e8b-9834-ccbf75275026",
-//     "clientSecret": "MvmTcXsipjcMHcrD",
-//     "ownerName": "Mohammed Javidh S",
-//     "ownerEmail": "mm1632@srmist.edu.in",
-//     "rollNo": "RA2111026010148"
-// };
-
 var clientId = {
     "companyName": "Srm University, KTR",
-    "clientID": "00a393de-0c6c-42b7-af4b-5005480596cb",
-    "clientSecret": "ZUGORceVVGwLJcJD",
+    "clientID": "704ba996-29df-4e8b-9834-ccbf75275026",
+    "clientSecret": "MvmTcXsipjcMHcrD",
     "ownerName": "Mohammed Javidh S",
     "ownerEmail": "mm1632@srmist.edu.in",
     "rollNo": "RA2111026010148"
-}
+};
+
 
 function idGenerator() {
     var S4 = function() {
