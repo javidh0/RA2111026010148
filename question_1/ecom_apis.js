@@ -13,14 +13,23 @@ const test_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXh
 
 var token = {};
 
+// var clientId = {
+//     "companyName": "Srm University, KTR",
+//     "clientID": "704ba996-29df-4e8b-9834-ccbf75275026",
+//     "clientSecret": "MvmTcXsipjcMHcrD",
+//     "ownerName": "Mohammed Javidh S",
+//     "ownerEmail": "mm1632@srmist.edu.in",
+//     "rollNo": "RA2111026010148"
+// };
+
 var clientId = {
     "companyName": "Srm University, KTR",
-    "clientID": "704ba996-29df-4e8b-9834-ccbf75275026",
-    "clientSecret": "MvmTcXsipjcMHcrD",
+    "clientID": "00a393de-0c6c-42b7-af4b-5005480596cb",
+    "clientSecret": "ZUGORceVVGwLJcJD",
     "ownerName": "Mohammed Javidh S",
     "ownerEmail": "mm1632@srmist.edu.in",
     "rollNo": "RA2111026010148"
-};
+}
 
 function idGenerator() {
     var S4 = function() {
@@ -68,48 +77,14 @@ async function getDataApi(req, res){
                     }
                 )
                 if(response_tr.length == companies.length*nProduct) {
-                    if(sort['price']) response_tr.sort(function(a, b){
+                    if(sort['price'] != null && sort['price']) response_tr.sort(function(a, b){
                         return a.price - b.price;
                     });
-                    console.log(response_tr);
-                    res.send(response_tr);
-                }
-            }
-        )
-    }
-    return response_tr;
-}
-
-async function getData(catagory, minPrice, maxPrice, nProduct, sort){
-    const b_token = await getBearerToken();
-    const headers = { 'Authorization': `Bearer ${b_token}` }; 
-
-    let response_tr = [];
-
-    for(var i=0; i<companies.length; i++){
-        const api = `http://20.244.56.144/test/companies/${companies[i]}/categories/${catagory}/products?top=${nProduct}&minPrice=${minPrice}&maxPrice=${maxPrice}`; 
-        axios.get(api, {headers})
-        .then(
-            (response) => {
-                response = response.data;
-                response.forEach(
-                    (prod) => {
-                        let p_id = idGenerator();
-                        prod['p_id'] = p_id;
-                        response_tr.push(prod);
-                    }
-                )
-                if(response_tr.length == companies.length*nProduct) {
-                    if(sort['price']) response_tr.sort(function(a, b){
-                        return a.price - b.price;
-                    });
-                    if(sort['rating']) response_tr.sort(function(a, b){
+                    if(sort['rating'] != null &&sort['rating']) response_tr.sort(function(a, b){
                         return a.rating - b.rating;
                     });
-                    if(sort['rating']) response_tr.sort(function(a, b){
-                        return a.rating - b.rating;
-                    });
-                    console.log(response_tr);
+                    console.log(sort);
+                    res.send(response_tr.slice(0, nProduct));
                 }
             }
         )
